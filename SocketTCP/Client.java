@@ -1,5 +1,5 @@
 import java.io.*;
-import java.net.*;
+import java.net.Socket;
 
 public class Client {
     public static void main(String[] args) {
@@ -9,6 +9,10 @@ public class Client {
         try {
             Socket socket = new Socket(host, port);
 
+            BufferedReader keyboard = new BufferedReader(
+                    new InputStreamReader(System.in)
+            );
+
             BufferedReader input = new BufferedReader(
                     new InputStreamReader(socket.getInputStream())
             );
@@ -17,15 +21,21 @@ public class Client {
                     socket.getOutputStream(), true
             );
 
-            output.println("Xin chao Server!");
+            System.out.print("Nhap noi dung gui Server: ");
+            String message = keyboard.readLine();
+
+            output.println(message);
 
             String response = input.readLine();
-            System.out.println("Server tra loi: " + response);
+
+            System.out.println(
+                    "Server Echo lai: " + response
+            );
 
             socket.close();
 
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Client Error: " + e);
         }
     }
 }

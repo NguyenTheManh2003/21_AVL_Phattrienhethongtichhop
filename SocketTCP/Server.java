@@ -1,5 +1,6 @@
-import java.io.*;
-import java.net.*;
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
 
 public class Server {
     public static void main(String[] args) {
@@ -7,29 +8,26 @@ public class Server {
 
         try {
             ServerSocket serverSocket = new ServerSocket(port);
-            System.out.println("Server dang cho ket noi tai port " + port + "...");
 
-            Socket socket = serverSocket.accept();
-            System.out.println("Client da ket noi!");
+            System.out.println("TCP Echo Server dang chay...");
+            System.out.println("Dang cho Client ket noi tai port " + port);
 
-            BufferedReader input = new BufferedReader(
-                    new InputStreamReader(socket.getInputStream())
-            );
+            while (true) {
+                Socket socket = serverSocket.accept();
 
-            PrintWriter output = new PrintWriter(
-                    socket.getOutputStream(), true
-            );
+                System.out.println(
+                    "Client da ket noi: " +
+                    socket.getInetAddress().getHostAddress()
+                );
 
-            String message = input.readLine();
-            System.out.println("Client gui: " + message);
+                RequestProcessing request =
+                        new RequestProcessing(socket);
 
-            output.println("Server da nhan: " + message);
-
-            socket.close();
-            serverSocket.close();
+                request.start();
+            }
 
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Server Error: " + e);
         }
     }
 }
