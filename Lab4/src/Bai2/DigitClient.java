@@ -39,9 +39,9 @@ public class DigitClient {
                 )
         ) {
 
-            System.out.println("Đã kết nối Server.");
-            System.out.println("Nhập chữ số 0-9.");
-            System.out.println("Nhập QUIT để thoát.");
+            System.out.println("Da ket noi Server.");
+            System.out.println("Nhap chu so tu 0 den 9.");
+            System.out.println("Nhap QUIT de thoat.");
 
             while (true) {
 
@@ -58,15 +58,11 @@ public class DigitClient {
                 String response = in.readLine();
 
                 if (response == null) {
-                    System.out.println(
-                            "Server đã đóng kết nối."
-                    );
+                    System.out.println("Server da dong ket noi.");
                     break;
                 }
 
-                System.out.println(
-                        "Server > " + response
-                );
+                System.out.println("Server > " + response);
 
                 if (request.equalsIgnoreCase("QUIT")) {
                     break;
@@ -74,9 +70,8 @@ public class DigitClient {
             }
 
         } catch (IOException e) {
-
             System.out.println(
-                    "Lỗi kết nối: " + e.getMessage()
+                    "Loi ket noi: " + e.getMessage()
             );
         }
     }
